@@ -37,6 +37,10 @@ export default Controller.extend({
     }
   }),
 
+  updateInfoMessage(errorMessage) {
+    this.set('errorMessage', errorMessage);
+  },
+
   actions: {
     stopBuild() {
       const { build } = this;

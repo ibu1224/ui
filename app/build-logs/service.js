@@ -30,6 +30,8 @@ export default Service.extend({
     let lines = [];
 
     let done = false;
+
+    let err = false;
     const inProgress = sortOrder === 'ascending';
 
     return new EmberPromise((resolve, reject) => {
@@ -59,6 +61,7 @@ export default Service.extend({
           .catch(error => {
             if (error.jqXHR && [403, 404].includes(error.jqXHR.status)) {
               done = true;
+              err = true;
             }
           })
           // always resolve something
@@ -78,7 +81,7 @@ export default Service.extend({
               });
             }
 
-            resolve({ lines, done });
+            resolve({ lines, done, err });
           })
       );
     });

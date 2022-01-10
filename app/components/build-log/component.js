@@ -339,7 +339,7 @@ export default Component.extend({
           sortOrder: this.sortOrder,
           started
         })
-        .then(({ done }) => {
+        .then(({ done, err }) => {
           // prevent updating logs when component is being destroyed
           if (!this.isDestroyed && !this.isDestroying) {
             const container = this.element.querySelectorAll('.wrap')[0];
@@ -360,6 +360,10 @@ export default Component.extend({
             }
 
             scheduleOnce('afterRender', this, cb);
+
+            if (err) {
+              this.updateMessage(`THIS IS ERROR MESSAGE ${err}`);
+            }
 
             if ((justFinished || inProgress) && !done) {
               later(this, 'getLogs', justFinished, ENV.APP.LOG_RELOAD_TIMER);
