@@ -68,17 +68,23 @@ export default Component.extend({
     }
   },
   async updateEventMetrics() {
-    const metrics = await this.store
-      .query('metric', {
-        pipelineId: this.pipeline.id,
-        page: 1,
-        count: 20
-      })
-      .catch(() => {
-        this.setProperties({
-          storeQueryError: true
-        });
-      });
+    console.log('load metrics');
+
+    const metrics = await this.pipeline.get('metrics');
+
+    // const metrics = await this.store
+    //   .query('metric', {
+    //     pipelineId: this.pipeline.id,
+    //     page: 1,
+    //     count: 20
+    //   })
+    //   .catch(() => {
+    //     this.setProperties({
+    //       storeQueryError: true
+    //     });
+    //   });
+
+    // this.pipeline.metrics = metrics;
 
     const result = formatMetrics(metrics);
     const { eventsInfo, lastEventInfo } = result;

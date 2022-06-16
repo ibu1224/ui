@@ -69,6 +69,8 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
       return;
     }
 
+    console.log('here, key', key);
+
     if (key === 'pipeline' || key === 'pipelines') {
       o.links = {
         events: 'events',
@@ -251,7 +253,7 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
    * @return {String} url
    */
   urlForQuery(query, modelName) {
-    if (modelName === 'event' || modelName === 'metric') {
+    if (modelName === 'event') {
       const { pipelineId, jobId } = query;
 
       delete query.pipelineId;

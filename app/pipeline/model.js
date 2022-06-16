@@ -22,6 +22,7 @@ export default DS.Model.extend({
   secrets: DS.hasMany('secret', { async: true }),
   tokens: DS.hasMany('token', { async: true }),
   metrics: DS.hasMany('metric', { async: true }),
+  // metrics: DS.hasMany('metric', { async: false, inverse: 'pipeline' }),
   settings: DS.attr({
     defaultValue() {
       return {
@@ -65,11 +66,13 @@ export default DS.Model.extend({
     get() {
       let failedBuildCount = 0;
 
-      this.metrics.toArray().forEach(event => {
-        if (['FAILURE', 'ABORTED'].includes(event.status)) {
+      this.metrics.toArray().forEach(m => {
+        if (['FAILURE', 'ABORTED'].includes(m.status)) {
           failedBuildCount += 1;
         }
       });
+
+      console.log('name', this.name, 'failedBuildCount', failedBuildCount);
 
       return failedBuildCount;
     }

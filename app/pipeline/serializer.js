@@ -4,6 +4,13 @@ import { sortWorkflowGraph } from '../event/serializer';
 
 export default DS.RESTSerializer.extend({
   normalizeResponse(store, typeClass, payload, id, requestType) {
+    console.log('here, pipeline serializer normalizeResponse');
+
+    // if (requestType.toString() === 'metric') {
+    //    payload.links = { metrics: 'metrics' };
+    //    return { card: payload };
+    //  }
+
     const { pipeline } = payload;
 
     if (pipeline && pipeline.workflowGraph) {
@@ -19,6 +26,8 @@ export default DS.RESTSerializer.extend({
    * @method serializeIntoHash
    */
   serializeIntoHash(hash, typeClass, snapshot) {
+    console.log('here, pipeline serializer serializeIntoHash');
+
     return assign(hash, {
       checkoutUrl: snapshot.attr('checkoutUrl'),
       rootDir: snapshot.attr('rootDir') || '',

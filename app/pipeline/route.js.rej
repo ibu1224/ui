@@ -1,0 +1,5 @@
+diff a/app/pipeline/route.js b/app/pipeline/route.js	(rejected hunks)
+@@ -32 +32,2 @@ export default Route.extend(AuthenticatedRouteMixin, {
+-          const pipelineEventsController = this.controllerFor('pipeline.events');
++          const pipelineEventsController =
++            this.controllerFor('pipeline.events');
